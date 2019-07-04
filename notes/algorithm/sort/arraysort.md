@@ -38,4 +38,43 @@
   }
 ```
 
+## 2. 选择排序（Selection Sort）
+  选择排序是从待排序序列中选取一个关键字最小的元素，把它与第一个记录交换存储位置，使之成为有序。然后在余下的无序记录中，
+再选出关键字最小的元素与无序区中第一个元素交换位置，又使它成为有序。以此类推，直到完成整个排序。
+
+1. 算法描述  
+  * 初始状态：整个数组r划分成两个部分，即有序区（初始为空）和无序区
+  * 基本操作：从无序区中选择关键字值最小的记录，将其与无序区的第一个记录交换位置（实质是添加到有序区尾部）。
+  * 从初态（有序区为空）开始，重复步骤（2），直到终态（无序区为空）。  
+  
+2.   
+  ![selection sort](img/selectionSort.gif)
+  
+  ![selection sort](img/selectionSort2.gif)
+  
+3. 代码实现  
+```java
+    public class SelectionSort {
+    
+        public int[] SelectionSort(int[] array){
+            int min;
+            int n;
+            for (int i = 0; i < array.length - 1; i++) {
+                min = i;
+                for (int j = i + 1; j < array.length; j++) {
+                    if (array[min] > array[j]){
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    n = array[min];
+                    array[min] = array[i];
+                    array[i] = n;
+                }
+    
+            }
+            return array;
+        }
+    }
+```  
      
