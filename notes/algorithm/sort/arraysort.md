@@ -77,4 +77,82 @@
         }
     }
 ```  
+
+## 3. 插入排序（Insertion Sort）
+  插入排序工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
+
+1. 算法描述
+  * 从第一个元素开始，该元素可以认为已经被排序
+  * 取出下一个元素，在已经排序的元素序列中从后向前扫描
+  * 如果该元素（已排序）大于新元素，将该元素移到下一位置
+  * 重复步骤3，直到找到已排序的元素小于或者等于新元素的位置
+  * 将新元素插入到该位置
+  * 重复步骤2~5
+  
+2. 动图演示
+
+  ![insertion sort](img/insertionSort.gif)
+  
+3. 代码实现
+```java
+public class InsertionSort {
+    
+    public int[] insertionSort(int[] arr){
+        int len = arr.length;
+        int preIndex;
+        int current;
+        for (int i = 1; i < len; i++) {
+            preIndex = i - 1;
+            current = arr[i];
+            while (preIndex >= 0 && arr[preIndex] > current) {
+                arr[preIndex + 1] = arr[preIndex];
+                preIndex--;
+            }
+            arr[preIndex + 1] = current;
+        }
+        return arr;
+    }
+}
+```
+
+## 4. 希尔排序（Shell Sort）
+  希尔排序又称缩小增量排序，它也是一种插入排序的方法，但是在时间上比直接插入排序有较大的改进。
+
+1. 算法描述 
+ 先将整个待排序的记录序列分割成若干个子序列分别进行直接插入排序，具体算法描述
+  * 选择一个增量序列t1, t2, ... ,tk, 其中ti > tj, tk=1
+  * 按增量序列个数k, 对序列进行k趟排序
+  * 每趟排序，根据对应的增量ti, 将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。
+  
+2. 动图演示
+ 
+  ![Shell Sort](img/shellSort.gif)
+  
+3. 代码实现
+```java
+public class ShellSort {
+
+    public int[] shellSort(int[] array) {
+        int n;
+        int j;
+        int len = array.length;
+        for (int gap = len / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < len; i++) {
+                j = i - gap;
+                while (j >= 0) {
+                    if (array[j] > array[j + gap]) {
+                        n = array[j];
+                        array[j] = array[j + gap];
+                        array[j + gap] = n;
+                        j -= gap;
+                    }else {
+                        break;
+                    }
+                }
+            }
+        }
+        return array;
+    }
+}
+```
      
