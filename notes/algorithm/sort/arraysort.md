@@ -242,7 +242,7 @@ public class QuickSort {
   ![Merge Sort](img/mergeSort.gif)
   
 3. 代码实现  
-    1. 方法一
+  * 方法一
 ```java
 public class MergeSort {
 
@@ -275,7 +275,7 @@ public class MergeSort {
     }
 }
 ```
-    2. 方法二
+  * 方法二
 ```java
 public class MergeSort {
     
