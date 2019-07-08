@@ -226,3 +226,91 @@ public class QuickSort {
     }
 }
 ```
+
+## 6. 归并算法（Merge Sort)
+  归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。
+将已有有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。
+若将两个有序表合并成一个有序表，称为2-路归并。
+
+1. 算法描述  
+  * 将n个记录的待排序序列看成是由n个长度都为1的有序子表组成
+  * 将两两相邻的子表归并为一个有序子表
+  * 重复上述步骤，直至归并为一个长度为n的有序表
+  
+2. 动图演示  
+
+  ![Merge Sort](img/mergeSort.gif)
+  
+3. 代码实现  
+  1. 方法一
+```java
+public class MergeSort {
+
+    public int[] mergeSort(int[] array) {
+        return mergeSort(array, 0 , array.length - 1);
+    }
+
+    private int[] mergeSort(int[] arr, int l, int h) {
+        if (l == h) {
+            return new int[]{arr[l]};
+        }
+        int mid = (l + h) / 2;
+        int[] leftArr = mergeSort(arr, l, mid);// 左有序序列
+        int[] rightArr = mergeSort(arr, mid + 1, h);// 右有序序列
+        int[] newArr = new int[leftArr.length + rightArr.length];
+
+        int k = 0;
+        int i = 0;
+        int j = 0;
+        while (i < leftArr.length && j < rightArr.length) {
+            newArr[k++] = leftArr[i] < rightArr[j] ? leftArr[i++] : rightArr[j++];
+        }
+        while (i < leftArr.length) {
+            newArr[k++] = leftArr[i++];
+        }
+        while (j < rightArr.length) {
+            newArr[k++] = rightArr[j++];
+        }
+        return newArr;
+    }
+}
+```
+  2. 方法二
+```java
+public class MergeSort {
+    
+    public int[] mergeSort(int[] array) {
+        int[] tempArr = new int[array.length];
+        mergeSort(array, tempArr,0 , array.length - 1);
+        return array;
+    }
+
+    private void mergeSort(int[] arr, int[] tempArr, int l, int h) {
+        if (l < h) {
+            int mid = (l + h)/2;
+            mergeSort(arr, tempArr, l, mid);//归并左序列
+            mergeSort(arr, tempArr, mid + 1, h);//归并右序列
+            merge(arr, tempArr, l, mid, h);
+        }
+    }
+
+    // 进行一趟归并，2-路归并
+    private void merge(int[] arr, int[] tempArr, int l, int mid, int h) {
+        int i = l;
+        int j = mid + 1;
+        int k = l;
+        while (i <= mid && j <= h) {
+            tempArr[k++] = arr[i] < arr[j] ? arr[i++] : arr[j++];
+        }
+        while (i <= mid) {
+            tempArr[k++] = arr[i++];
+        }
+        while (j <= h) {
+            tempArr[k++] = arr[j++];
+        }
+        for (i = l; i <= h; i++) {
+            arr[i] = tempArr[i];
+        }
+    }
+}
+```
