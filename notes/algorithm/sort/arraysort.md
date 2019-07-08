@@ -233,16 +233,16 @@ public class QuickSort {
 若将两个有序表合并成一个有序表，称为2-路归并。
 
 1. 算法描述  
-  * 将n个记录的待排序序列看成是由n个长度都为1的有序子表组成
-  * 将两两相邻的子表归并为一个有序子表
-  * 重复上述步骤，直至归并为一个长度为n的有序表
+    * 将n个记录的待排序序列看成是由n个长度都为1的有序子表组成
+    * 将两两相邻的子表归并为一个有序子表
+    * 重复上述步骤，直至归并为一个长度为n的有序表
   
 2. 动图演示  
 
   ![Merge Sort](img/mergeSort.gif)
   
 3. 代码实现  
-  1. 方法一
+    1. 方法一
 ```java
 public class MergeSort {
 
@@ -275,7 +275,7 @@ public class MergeSort {
     }
 }
 ```
-  2. 方法二
+    2. 方法二
 ```java
 public class MergeSort {
     
