@@ -313,4 +313,84 @@ public class MergeSort {
         }
     }
 }
+```  
+
+## 7. 堆排序（Heap Sort）
+  堆排序是利用堆树来进行排序的方法。堆树是一种特殊的完全二叉树，如果该完全二叉树中没一个结点的值均大于或等于它的两个子结点的值，
+则称其为大顶堆（或大根堆）；如果该完全二叉树中每一个结点的值均小于或等于它的两个子结点的值，则称其为小顶堆（或小根堆）。  
+  如果需要作升序排列，则应建立大顶堆；反之，则应建立小顶堆。
+  
+1. 算法描述  
+    * 建堆：把用数组存储的 n个待排序数据，看作成一颗完全二叉树的顺序存储形式，并对这颗完全二叉树进行一系列的比较交换，将其建成一颗堆树。
+    * 交换：将堆顶数据和当前待排序序列的最后那个数据相交换，堆顶数据即可排到其最终位置，待排序数据从而减少一个
+    * 调整：由于最后那个数据交换到堆顶，它破坏了原有的堆结构，应将其不断向下交换，直到剩余的待排序数据重新调整成一颗堆树
+    * 不断重复2、3两步，直到待排序数据只剩一个为止，此时所有数据即已排成有序  
+    
+2. 动图演示  
+
+  ![Heap Sort](img/heapSort.gif)  
+
+3. 代码实现  
+```java
+public class HeapSort {
+
+    public int[] heapSort(int[] array) {
+        int length = array.length - 1;
+        //建立大顶堆
+        for (int i = parent(length); i >= 0; i--) {
+            heapAdjust(array, i, length);
+        }
+
+        for (int i = length; i > 0; i--) {
+            //交换堆顶元素到数组最后面
+            swap(array, 0, i);
+            //调整大顶堆
+            heapAdjust(array, 0, i - 1);
+        }
+        return array;
+    }
+
+    //调整s结点下面树分支满足大顶堆条件
+    private void heapAdjust(int[] arr, int s, int length) {
+        int max = arr[s];
+        //s 的左子结点
+        int k = left(s);
+        //判断k是否在调整范围内
+        while (k <= length) {
+            //判断k作为左结点时，右结点是否存在。并比较两个结点最大的值
+            if (k + 1 <= length && arr[k] < arr[k + 1]) {
+                k = k + 1;
+            }
+
+            //子结点是否比父结点大
+            if (arr[s] < arr[k]) {
+                //交换结点
+                swap(arr, s, k);
+                //保存新的父结点
+                s = k;
+            }else {
+                break;
+            }
+            k = left(k);
+        }
+        arr[s] = max;
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    //父节点
+    private int parent(int i) {
+        return (i - 1) / 2;
+    }
+
+    //左子结点
+    private int left(int i) {
+        return 2 * i + 1;
+    }
+    
+}
 ```
